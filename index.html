@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>pasapalabra</title>
+  </head>
+  <body>
+    
+    <div class="container">
+      <div class="letters">A</div>
+      <div class="letters">B</div>
+      <div class="letters">C</div>
+      <div class="letters">D</div>
+      <div class="letters">E</div>
+      <div class="letters">F</div>
+      <div class="letters">G</div>
+      <div class="letters">H</div>
+      <div class="letters">I</div>
+      <div class="letters">J</div>
+      <div class="letters">k</div>
+      <div class="letters">l</div>
+      <div class="letters">m</div>
+      <div class="letters">n</div>
+      <div class="letters">o</div>
+      <div class="letters">p</div>
+      <div class="letters">q</div>
+      <div class="letters">r</div>
+      <div class="letters">s</div>
+      <div class="letters">t</div>
+      <div class="letters">u</div>
+      <div class="letters">v</div>
+      <div class="letters">w</div>
+      <div class="letters">x</div>
+      <div class="letters">y</div>
+      <div class="letters">z</div>
+    </div>
+    <h2 class="showQuestion"></h2>
+    <input class="inputAnswer" type="text" name="" id="" placeholder="" />
+    <button class="skipButton">SKIP</button>
+  </body>
+  <script>
+    const questionsAndAnswers = [
+      { q: "Quien la tiene mas grande", a: "jose", answered: false },
+      { q: "ES ES?", a: "jose", answered: false },
+      { q: "LOCO", a: "jose", answered: false },
+      { q: "MAMA", a: "jose", answered: false },
+      { q: "Quien la tiene mas grande", a: "jose", answered: false },
+      { q: "Quien la tiene mas grande", a: "jose", answered: false },
+      { q: "Quien la tiene mas grande", a: "jose", answered: false },
+      { q: "Quien la tiene mas grande", a: "jose", answered: false },
+      { q: "Quien la tiene mas grande", a: "jose", answered: false },
+      { q: "Quien la tiene mas grande", a: "jose", answered: false },
+    ];
+    const skipButton = document.querySelector(".skipButton");
+    const inputAnswer = document.querySelector(".inputAnswer");
+    const h2Question = document.querySelector(".showQuestion");
+    const letters = document.querySelectorAll(".letters");
+    let index = 0;
+
+    h2Question.textContent = questionsAndAnswers[index].q + "?";
+
+    markLetterAscurrent(index, letters, questionsAndAnswers);
+
+    inputAnswer.addEventListener("keydown", (e) => {
+      const { key } = e;
+
+      if (key == "Enter") {
+        if (inputAnswer.value == "") {
+          moveForward();
+          markLetterAscurrent(index, letters);
+          return;
+        }
+        //mark as answered
+        questionsAndAnswers[index].answered = true;
+        const userAnswer = e.target.value;
+        const correctAnswer = questionsAndAnswers[index].a;
+
+        //correct answer
+        if (userAnswer.toLowerCase() == correctAnswer) {
+          if (isFinished(questionsAndAnswers)) {
+            alert("listo");
+            index = -1;
+            return;
+          }
+          letters[index].style.backgroundColor = "green";
+        } else {
+          //incorrect answer
+          letters[index].style.backgroundColor = "red";
+        }
+        moveForward();
+        markLetterAscurrent(index, letters);
+      }
+    });
+
+    skipButton.addEventListener("click", () => {
+      moveForward();
+      markLetterAscurrent(index, letters);
+    });
+
+    function moveForward() {
+      const newIndex = getNextIndex(index, questionsAndAnswers);
+      index = newIndex;
+      const newQuestion = questionsAndAnswers[index].q;
+      h2Question.textContent = newQuestion + "?";
+      inputAnswer.value = "";
+    }
+
+    function isFinished(questionsAndAnswers) {
+      for (const qa of questionsAndAnswers) {
+        if (!qa.answered) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function getNextIndex(index, questionsAndAnswers) {
+      let currentIndex = index;
+      while (true) {
+        if (currentIndex == questionsAndAnswers.length - 1) {
+          currentIndex = 0;
+        } else {
+          currentIndex++;
+        }
+        //if not answered yet, return that index
+        if (!questionsAndAnswers[currentIndex].answered) {
+          return currentIndex;
+        }
+      }
+    }
+    function markLetterAscurrent(index, arrOfLetters) {
+      arrOfLetters.forEach((element) => {
+        if (element.style.backgroundColor == "orange") {
+          element.style.backgroundColor = "blanchedalmond";
+        }
+      });
+      arrOfLetters[index].style.backgroundColor = "orange";
+    }
+  </script>
+</html>
