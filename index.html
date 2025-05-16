@@ -7,7 +7,6 @@
     <title>pasapalabra</title>
   </head>
   <body>
-    
     <div class="container">
       <div class="letters">A</div>
       <div class="letters">B</div>
@@ -19,11 +18,11 @@
       <div class="letters">H</div>
       <div class="letters">I</div>
       <div class="letters">J</div>
-      <div class="letters">k</div>
-      <div class="letters">l</div>
-      <div class="letters">m</div>
-      <div class="letters">n</div>
-      <div class="letters">o</div>
+      <div class="letters">K</div>
+      <div class="letters">L</div>
+      <div class="letters">M</div>
+      <div class="letters">N</div>
+      <div class="letters">O</div>
       <div class="letters">p</div>
       <div class="letters">q</div>
       <div class="letters">r</div>
@@ -35,32 +34,102 @@
       <div class="letters">x</div>
       <div class="letters">y</div>
       <div class="letters">z</div>
+      <section class="questions">
+        <h2 class="showQuestion"></h2>
+        <p class="showData"></p>
+        <input class="inputAnswer" type="text" name="" id="" placeholder="" />
+        <button class="skipButton">SKIP</button>
+      </section>
     </div>
-    <h2 class="showQuestion"></h2>
-    <input class="inputAnswer" type="text" name="" id="" placeholder="" />
-    <button class="skipButton">SKIP</button>
   </body>
   <script>
     const questionsAndAnswers = [
-      { q: "Quien la tiene mas grande", a: "jose", answered: false },
-      { q: "ES ES?", a: "jose", answered: false },
-      { q: "LOCO", a: "jose", answered: false },
-      { q: "MAMA", a: "jose", answered: false },
-      { q: "Quien la tiene mas grande", a: "jose", answered: false },
-      { q: "Quien la tiene mas grande", a: "jose", answered: false },
-      { q: "Quien la tiene mas grande", a: "jose", answered: false },
-      { q: "Quien la tiene mas grande", a: "jose", answered: false },
-      { q: "Quien la tiene mas grande", a: "jose", answered: false },
-      { q: "Quien la tiene mas grande", a: "jose", answered: false },
+      {
+        q: "Cual es el segundo nombre de Messi",
+        a: ["andres"],
+        answered: false,
+        data: "Empieza por A",
+      },
+      {
+        q: "Cual es el pais con más copas del mundo",
+        a: ["brazil", "brasil"],
+        answered: false,
+        data: "Empieza por B",
+      },
+      {
+        q: "Cuál es el país más poblado del mundo",
+        a: ["china"],
+        answered: false,
+        data: "Empieza por C",
+      },
+      {
+        q: "Funcion matemática que muestra el ratio de cambio",
+        a: ["derivada", "derivadas"],
+        answered: false,
+        data: "Empieza por D",
+      },
+      {
+        q: "Un músculo potente que se encuentra en la parte anterior del cuello. La palabra es más larga que la mierda",
+        a: ["esternocleidomastoideo"],
+        answered: false,
+        data: "Empieza por E",
+      },
+      {
+        q: "Compañía de videojuegos responsable por éxitos como dark souls y elden ring",
+        a: ["fromsoftware", "from software"],
+        answered: false,
+        data: "Empieza por f",
+      },
+      {
+        q: "Modelo astronómico que se utilizaba previamente",
+        a: ["geocentrismo", "geocentrista"],
+        answered: false,
+        data: "Empieza por G",
+      },
+      {
+        q: "Atomo producido por la fusión en las estrellas",
+        a: ["helio"],
+        answered: false,
+        data: "Empieza por H",
+      },
+      {
+        q: "Saga de juegos de la cual es originaria el spinoff de 'Persona'",
+        a: ["shin megami tensei", "megami tensei"],
+        answered: false,
+        data: "Contiene la I",
+      },
+      {
+        q: "País de donde es originaria 'Petra'",
+        a: ["jordania"],
+        answered: false,
+        data: "Empieza por J",
+      },
+      {
+        q: "Unidad de masa",
+        a: ["kilo", "kilogramo", "kilos", "kilogramos"],
+        answered: false,
+        data: "Empieza por K",
+      },
+      {
+        q: "Suma de infinitos sumandos que dan el área bajo una línea de una función",
+        a: ["integral", "integrales"],
+        answered: false,
+        data: "Contiene la L",
+      },
+      {
+        q: "Juego first person shooter pionero en el género",
+        a: ["doom"],
+        answered: false,
+        data: "Contiene M",
+      },
     ];
     const skipButton = document.querySelector(".skipButton");
     const inputAnswer = document.querySelector(".inputAnswer");
     const h2Question = document.querySelector(".showQuestion");
     const letters = document.querySelectorAll(".letters");
-    let index = 0;
-
-    h2Question.textContent = questionsAndAnswers[index].q + "?";
-
+    const showData = document.querySelector(".showData");
+    let index = -1;
+    moveForward();
     markLetterAscurrent(index, letters, questionsAndAnswers);
 
     inputAnswer.addEventListener("keydown", (e) => {
@@ -78,12 +147,7 @@
         const correctAnswer = questionsAndAnswers[index].a;
 
         //correct answer
-        if (userAnswer.toLowerCase() == correctAnswer) {
-          if (isFinished(questionsAndAnswers)) {
-            alert("listo");
-            index = -1;
-            return;
-          }
+        if (answerIsCorrect(userAnswer, index)) {
           letters[index].style.backgroundColor = "green";
         } else {
           //incorrect answer
@@ -91,6 +155,12 @@
         }
         moveForward();
         markLetterAscurrent(index, letters);
+
+        if (isFinished(questionsAndAnswers)) {
+          alert("listo");
+          index = -23;
+          return;
+        }
       }
     });
 
@@ -102,9 +172,15 @@
     function moveForward() {
       const newIndex = getNextIndex(index, questionsAndAnswers);
       index = newIndex;
-      const newQuestion = questionsAndAnswers[index].q;
-      h2Question.textContent = newQuestion + "?";
+      const newQuestion = questionsAndAnswers[index];
+      h2Question.textContent = newQuestion.q;
       inputAnswer.value = "";
+      showData.textContent = newQuestion.data;
+    }
+
+    function answerIsCorrect(answer, index) {
+      const correctAnswers = questionsAndAnswers[index].a;
+      return correctAnswers.includes(answer.toLowerCase());
     }
 
     function isFinished(questionsAndAnswers) {
@@ -117,6 +193,7 @@
     }
 
     function getNextIndex(index, questionsAndAnswers) {
+      if (index == -1) return 0;
       let currentIndex = index;
       while (true) {
         if (currentIndex == questionsAndAnswers.length - 1) {

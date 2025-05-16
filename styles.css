@@ -20,15 +20,28 @@ body {
   border-width: 6px;
   border-color: black;
   border: solid;
+  text-transform: uppercase;
 }
+
+.questions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 250px;
+  position: relative;
+  right: 150px;
+  gap: 10px;
+}
+
 .container {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #185adb;
+  background: #c23721;
   border-radius: 50%;
-
   width: 400px;
   height: 400px;
 }
