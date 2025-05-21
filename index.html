@@ -82,7 +82,7 @@
       },
       {
         q: "Modelo astronómico que se utilizaba previamente",
-        a: ["geocentrismo", "geocentrista"],
+        a: ["geocentrismo", "geocentrista", "geocentrico", "geocéntrico"],
         answered: false,
         data: "Empieza por G",
       },
@@ -122,6 +122,84 @@
         answered: false,
         data: "Contiene M",
       },
+      {
+        q: "Consola de videojuegos fabricada por SNK",
+        a: ["neogeo", "neo geo", "neo-geo"],
+        answered: false,
+        data: "Empieza por N",
+      },
+      {
+        q: "Combinación, en una misma estructura sintáctica, de dos palabras o expresiones de significado opuesto que originan un nuevo sentido",
+        a: ["oximoron", "oximorón"],
+        answered: false,
+        data: "Empieza por O",
+      },
+      {
+        q: "Nombre en tono de broma y despectivo que se le da a Cristiano Ronaldo",
+        a: ["penaldo"],
+        answered: false,
+        data: "Empieza por P",
+      },
+      {
+        q: "Que",
+        a: ["que"],
+        answered: false,
+        data: "Empieza por Q",
+      },
+      {
+        q: "Manga del aclamado autor Kentaro Miura",
+        a: ["berserk"],
+        answered: false,
+        data: "Contiene R",
+      },
+      {
+        q: "El arte de hacerle ridículo a alguien o algo, provocando la risa para avergonzar, humillar o desacreditarlo",
+        a: ["sátira", "satira"],
+        answered: false,
+        data: "Empieza por S",
+      },
+      {
+        q: "Comida servida en plato característica de España",
+        a: ["tortilla", "tortilla de papas", "tortilla de patatas"],
+        answered: false,
+        data: "Empieza por T",
+      },
+      {
+        q: "Nombre de juego de rol, presenta similitudes con dungeons and dragons",
+        a: ["ultima"],
+        answered: false,
+        data: "Empieza por U",
+      },
+      {
+        q: "La división del desplazamiento entre el tiempo",
+        a: ["velocidad"],
+        answered: false,
+        data: "Empieza por V",
+      },
+      {
+        q: "Marca de automoviles alemán",
+        a: ["volkswagen"],
+        answered: false,
+        data: "Contiene W",
+      },
+      {
+        q: "En adición",
+        a: ["extra"],
+        answered: false,
+        data: "Contiene X",
+      },
+      {
+        q: "País del medio oriente que limita con Arabia Saudita",
+        a: ["yemen"],
+        answered: false,
+        data: "Empieza por Y",
+      },
+      {
+        q: "País Africano que limita con la República del Congo",
+        a: ["zambia"],
+        answered: false,
+        data: "Empieza por Z",
+      },
     ];
     const skipButton = document.querySelector(".skipButton");
     const inputAnswer = document.querySelector(".inputAnswer");
@@ -153,14 +231,13 @@
           //incorrect answer
           letters[index].style.backgroundColor = "red";
         }
-        moveForward();
-        markLetterAscurrent(index, letters);
-
         if (isFinished(questionsAndAnswers)) {
           alert("listo");
           index = -23;
           return;
         }
+        moveForward();
+        markLetterAscurrent(index, letters);
       }
     });
 
